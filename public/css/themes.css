@@ -1,10 +1,10 @@
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #fffbea;
+  --bg-secondary: #fff8f3; /* Un blanc très légèrement teinté d'orange pour le fond */
   --text-primary: #141414;
   --text-secondary: #5c5c5c;
-  --accent: #f5c518;
-  --accent-dark: #d9a800;
+  --accent: #FF7A00; /* L'orange DEPTO */
+  --accent-dark: #E65C00; /* L'orange foncé pour le survol */
   --border: #e6e6e6;
   --card-bg: #ffffff;
 }
@@ -14,8 +14,8 @@
   --bg-secondary: #171717;
   --text-primary: #f2f2f2;
   --text-secondary: #a8a8a8;
-  --accent: #f5c518;
-  --accent-dark: #ffd633;
+  --accent: #FF7A00;
+  --accent-dark: #FF9933; /* Un orange plus lumineux en mode sombre */
   --border: #2a2a2a;
   --card-bg: #1a1a1a;
 }
