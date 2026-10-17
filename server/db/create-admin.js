@@ -5,22 +5,17 @@ const path = require("path");
 
 const db = new Database(path.join(__dirname, "depto.db"));
 
-const email = process.env.ADMIN_EMAIL || "admin@depto.cd";
-const password = process.env.ADMIN_PASSWORD || "ChangeMoi2026!";
+const nom = "David Mulunda";
+const email = "nkuludavid850@gmail.com";
+const password = process.env.ADMIN_PASSWORD || "TON_MOT_DE_PASSE_ICI"; // Mets ton mot de passe ici si pas dans .env
 
-const existing = db
-  .prepare("SELECT id FROM admins WHERE email = ?")
-  .get(email);
-
-if (existing) {
-  console.log("Admin deja existant :", email);
-  db.close();
-  process.exit(0);
-}
+// Supprime tous les admins existants pour repartir sur une base propre
+db.prepare("DELETE FROM admins").run();
 
 const hash = bcrypt.hashSync(password, 10);
 
-db.prepare("INSERT INTO admins (email, password) VALUES (?, ?)").run(
+db.prepare("INSERT INTO admins (nom, email, password) VALUES (?, ?, ?)").run(
+  nom,
   email,
   hash
 );

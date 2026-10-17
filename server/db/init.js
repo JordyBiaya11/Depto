@@ -29,6 +29,7 @@ db.exec(`
     client_nom TEXT,
     client_telephone TEXT,
     total REAL DEFAULT 0,
+    montant_paye REAL DEFAULT 0,
     statut TEXT DEFAULT 'En attente',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
@@ -47,6 +48,7 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS admins (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -55,6 +57,10 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_produits_categorie ON produits(categorie);
   CREATE INDEX IF NOT EXISTS idx_commandes_code ON commandes(code);
 `);
+
+try {
+  db.exec("ALTER TABLE admins ADD COLUMN nom TEXT");
+} catch (e) {}
 
 console.log("Base initialisee :", dbPath);
 
