@@ -10,6 +10,7 @@
     "create-admin": "node server/db/create-admin.js"
   },
   "dependencies": {
+    "@ngandu-dev/flexpay": "^2.0.1",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^12.9.0",
     "dotenv": "^16.4.5",
