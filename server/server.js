@@ -2,6 +2,19 @@ require("dotenv").config();
 
 const path = require("path");
 const express = require("express");
+const { execSync } = require("child_process");
+
+// --- DEBUT DE LA CORRECTION ---
+// On force la création de la base et de l'admin de manière synchrone au démarrage
+try {
+  console.log("Verification de la base de donnees...");
+  execSync("node server/db/init.js", { stdio: "inherit" });
+  console.log("Verification de l'admin...");
+  execSync("node server/db/create-admin.js", { stdio: "inherit" });
+} catch (error) {
+  console.error("Erreur lors de l'initialisation :", error.message);
+}
+// --- FIN DE LA CORRECTION ---
 
 const authRoutes = require("./routes/auth");
 const produitsRoutes = require("./routes/produits");
@@ -42,5 +55,4 @@ app.use(function (err, req, res, next) {
 
 app.listen(PORT, function () {
   console.log("DEPTO en ligne sur http://localhost:" + PORT);
-  console.log("Admin : http://localhost:" + PORT + "/admin/login.html");
 });

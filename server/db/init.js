@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const Database = require("better-sqlite3");
 
-const dbDir = path.join(__dirname);
+const dbDir = __dirname;
 const dbPath = path.join(dbDir, "depto.db");
 
 if (!fs.existsSync(dbDir)) {
@@ -62,6 +62,5 @@ try {
   db.exec("ALTER TABLE admins ADD COLUMN nom TEXT");
 } catch (e) {}
 
-console.log("Base initialisee :", dbPath);
-
+console.log("Base initialisee avec succes.");
 db.close();
