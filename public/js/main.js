@@ -22,13 +22,18 @@
   }
 
   function updateCartCount() {
-    const badge = document.getElementById("cartCount");
-    if (!badge) return;
     const panier = JSON.parse(localStorage.getItem("depto-panier") || "[]");
     const total = panier.reduce(function (sum, item) {
       return sum + Number(item.quantite || 0);
     }, 0);
-    badge.textContent = total;
+    
+    // Met à jour le badge du header (ordinateur)
+    const badge = document.getElementById("cartCount");
+    if (badge) badge.textContent = total;
+    
+    // Met à jour le badge du menu (mobile)
+    const mobileBadge = document.getElementById("mobileCartCount");
+    if (mobileBadge) mobileBadge.textContent = total;
   }
 
   updateCartCount();

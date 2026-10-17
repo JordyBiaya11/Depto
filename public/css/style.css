@@ -791,6 +791,36 @@ button {
   color: var(--text-secondary);
 }
 
+/* Loader Lottie */
+#depto-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#depto-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-lottie-container {
+  margin-bottom: 20px;
+}
+
+.loader-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 /* Responsive */
 
 @media (max-width: 900px) {
@@ -845,8 +875,20 @@ button {
     display: flex;
   }
 
-  .cart-btn {
+  /* On cache le bouton panier du header */
+  .header-actions .cart-btn {
     display: none;
+  }
+
+  /* Mais on l'affiche dans le menu déroulant sur mobile */
+  .main-nav .mobile-cart-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    color: var(--accent-dark);
+    font-weight: 700;
+    border-bottom: none;
   }
 
   .hero {
@@ -865,33 +907,33 @@ button {
   .track-form {
     flex-direction: column;
   }
-}
-/* Loader Lottie */
-#depto-loader {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-primary);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-}
 
-#depto-loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
+  /* Reorganisation du panier sur mobile */
+  .cart-item {
+    grid-template-columns: 1fr;
+    position: relative;
+    padding-top: 36px;
+  }
 
-.loader-lottie-container {
-  margin-bottom: 20px;
-}
+  .cart-item img {
+    width: 100%;
+    height: 200px;
+  }
 
-.loader-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  .cart-item-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .cart-item-actions .remove-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--bg-secondary);
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
 }
