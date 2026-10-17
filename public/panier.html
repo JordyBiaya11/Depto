@@ -6,16 +6,13 @@
   <title>Panier - DEPTO</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/themes.css">
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" type="module"></script>
 </head>
 <body>
 
   <div id="depto-loader">
-    <div class="loader-track">
-      <div class="loader-scooter">
-        <svg viewBox="0 0 24 24">
-          <path d="M19 7h-3V6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1H1v2h3v2H2v6h2v2a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2h10v2a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2h2V9h-2V7zM6 6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1H6V6zm11 10H5v-4h12v4zm0-6H5V9h12v1zm2 0h-2V9h2v1zm0 2h-2v-1h2v1z"/>
-        </svg>
-      </div>
+    <div class="loader-lottie-container">
+      <dotlottie-wc src="images/loader.json" speed="1" style="width: 180px; height: 180px;" loop autoplay></dotlottie-wc>
     </div>
     <div class="loader-text">Chargement DEPTO...</div>
   </div>
@@ -59,6 +56,16 @@
 
           <aside class="cart-summary">
             <h2>Recapitulatif</h2>
+            
+            <div class="form-field" style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Votre Nom *</label>
+              <input type="text" id="clientNom" placeholder="Ex: David N." required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-primary); font-size: 14px;">
+            </div>
+            <div class="form-field" style="margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Votre Téléphone *</label>
+              <input type="tel" id="clientTel" placeholder="Ex: +243 97..." required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-primary); font-size: 14px;">
+            </div>
+
             <div class="summary-row">
               <span>Total</span>
               <strong id="cartTotal">0 $</strong>

@@ -87,9 +87,16 @@
 
   function validerCommande() {
     const panier = getPanier();
+    const nom = document.getElementById("clientNom").value.trim();
+    const tel = document.getElementById("clientTel").value.trim();
 
     if (panier.length === 0) {
       alert("Votre panier est vide.");
+      return;
+    }
+
+    if (!nom || !tel) {
+      alert("Veuillez renseigner votre nom et votre numéro de téléphone pour le suivi de votre colis.");
       return;
     }
 
@@ -113,8 +120,8 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        client_nom: "Client Web",
-        client_telephone: "",
+        client_nom: nom,
+        client_telephone: tel,
         items: items,
       }),
     })
@@ -126,7 +133,8 @@
         savePanier([]);
         
         let message = "Nouvelle commande DEPTO\n\n";
-        message += "Facture N° : " + commande.code + "\n\n";
+        message += "Facture N° : " + commande.code + "\n";
+        message += "Client : " + nom + " (" + tel + ")\n\n";
         
         panier.forEach(function (item, i) {
           const sousTotal = Number(item.prix) * Number(item.quantite);
@@ -140,7 +148,6 @@
 
         const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
         
-        // Affiche l'animation
         const loader = document.getElementById("depto-loader");
         if (loader) {
           loader.classList.remove("hidden");
@@ -148,10 +155,9 @@
           if (loaderText) loaderText.textContent = "Redirection vers WhatsApp...";
         }
 
-        // Attend 1.8 secondes puis ouvre WhatsApp et redirige
         setTimeout(function () {
           window.open(url, "_blank");
-          alert("Votre facture " + commande.code + " a été créée. Vous allez être redirigé vers WhatsApp.");
+          alert("Votre facture " + commande.code + " a été créée.\n\nConservez bien ce code (ex: " + commande.code + ") pour suivre votre colis sur notre site.");
           window.location.href = "index.html";
         }, 1800);
       })
