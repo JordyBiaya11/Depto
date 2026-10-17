@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit - DEPTO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" type="module"></script>
+</head>
+<body>
+
+  <div id="depto-loader">
+    <div class="loader-lottie-container">
+      <dotlottie-wc src="images/loader.json" speed="1" style="width: 180px; height: 180px;" loop autoplay></dotlottie-wc>
+    </div>
+    <div class="loader-text">Chargement DEPTO...</div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">D</span>
+        <span class="brand-name">DEPTO</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="produits.html" class="nav-link active">Produits</a>
+        <a href="suivi.html" class="nav-link">Suivi</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Changer de theme">
+          <span class="theme-icon theme-icon-light">Jour</span>
+          <span class="theme-icon theme-icon-dark">Nuit</span>
+        </button>
+        <a href="panier.html" class="cart-btn">
+          Panier <span id="cartCount" class="cart-count">0</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container product-detail" id="productDetail">
+        <p class="empty-state">Chargement du produit...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name">DEPTO</p>
+        <p class="footer-text">Kinshasa, Republique Democratique du Congo</p>
+      </div>
+      <div class="footer-links">
+        <a href="produits.html">Produits</a>
+        <a href="suivi.html">Suivi</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">2026 DEPTO. Tous droits reserves.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/produit.js"></script>
+</body>
+</html>

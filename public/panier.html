@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panier - DEPTO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/themes.css">
+</head>
+<body>
+
+  <div id="depto-loader">
+    <div class="loader-track">
+      <div class="loader-scooter">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 7h-3V6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1H1v2h3v2H2v6h2v2a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2h10v2a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2h2V9h-2V7zM6 6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1H6V6zm11 10H5v-4h12v4zm0-6H5V9h12v1zm2 0h-2V9h2v1zm0 2h-2v-1h2v1z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="loader-text">Chargement DEPTO...</div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">D</span>
+        <span class="brand-name">DEPTO</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="produits.html" class="nav-link">Produits</a>
+        <a href="suivi.html" class="nav-link">Suivi</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Changer de theme">
+          <span class="theme-icon theme-icon-light">Jour</span>
+          <span class="theme-icon theme-icon-dark">Nuit</span>
+        </button>
+        <a href="panier.html" class="cart-btn">
+          Panier <span id="cartCount" class="cart-count">0</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h1>Mon panier</h1>
+        </div>
+
+        <div class="cart-layout">
+          <div class="cart-items" id="cartItems"></div>
+
+          <aside class="cart-summary">
+            <h2>Recapitulatif</h2>
+            <div class="summary-row">
+              <span>Total</span>
+              <strong id="cartTotal">0 $</strong>
+            </div>
+            <button class="btn btn-primary btn-block" id="btnValider">
+              Valider la commande
+            </button>
+            <button class="btn btn-ghost btn-block" id="btnVider">
+              Vider le panier
+            </button>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name">DEPTO</p>
+        <p class="footer-text">Kinshasa, Republique Democratique du Congo</p>
+      </div>
+      <div class="footer-links">
+        <a href="produits.html">Produits</a>
+        <a href="suivi.html">Suivi</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">2026 DEPTO. Tous droits reserves.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/panier.js"></script>
+</body>
+</html>

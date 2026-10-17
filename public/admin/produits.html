@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Produits - DEPTO Admin</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <span class="admin-brand-mark">D</span>
+        <div>
+          <div class="admin-brand-name">DEPTO</div>
+          <div class="admin-brand-sub">Administration</div>
+        </div>
+      </div>
+
+      <a href="dashboard.html" class="admin-nav-link">Tableau de bord</a>
+      <a href="produits.html" class="admin-nav-link active">Produits</a>
+      <a href="commandes.html" class="admin-nav-link">Commandes</a>
+
+      <div class="admin-nav-spacer"></div>
+
+      <div class="admin-sidebar-footer">
+        <button id="themeToggle">Changer de theme</button>
+        <button id="logoutBtn">Deconnexion</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1>Produits</h1>
+        <div class="admin-topbar-actions">
+          <button class="btn btn-primary" id="btnNewProduct">Nouveau produit</button>
+        </div>
+      </div>
+
+      <div class="admin-card" id="formCard" hidden>
+        <h2 id="formTitle">Ajouter un produit</h2>
+
+        <form class="admin-form" id="productForm">
+          <input type="hidden" id="productId" name="id">
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nom">Nom du produit</label>
+              <input type="text" id="nom" name="nom" required>
+            </div>
+            <div class="form-field">
+              <label for="prix">Prix (USD)</label>
+              <input type="number" id="prix" name="prix" step="0.01" min="0" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="categorie">Categorie</label>
+              <select id="categorie" name="categorie" required>
+                <option value="vetements">Vetements</option>
+                <option value="electronique">Electronique</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="tailles">Tailles disponibles</label>
+              <input type="text" id="tailles" name="tailles" placeholder="Ex: S, M, L, XL">
+              <span class="form-hint">Separez par des virgules. Laisser vide pour l'electronique.</span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="3"></textarea>
+          </div>
+
+          <div class="form-field">
+            <label>Photo du produit</label>
+            <label class="file-drop" id="fileDrop" for="photo">
+              <strong>Cliquez ou deposez une image</strong>
+              <span>JPG, PNG ou WEBP. 5 Mo maximum.</span>
+              <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp">
+            </label>
+            <div class="file-preview" id="filePreview" hidden>
+              <img id="previewImg" alt="Apercu">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Enregistrer</button>
+            <button type="button" class="btn btn-ghost" id="btnCancel">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Prix</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productTable">
+              <tr>
+                <td colspan="5" class="admin-empty">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/admin-guard.js"></script>
+  <script src="../js/admin-produits.js"></script>
+</body>
+</html>

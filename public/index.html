@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DEPTO - Vente sur precommande a Kinshasa. Vetements et electronique importes avec controle qualite.">
+  <title>DEPTO - Vente sur precommande</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" type="module"></script>
+</head>
+<body>
+
+  <div id="depto-loader">
+    <div class="loader-lottie-container">
+      <dotlottie-wc src="images/loader.json" speed="1" style="width: 180px; height: 180px;" loop autoplay></dotlottie-wc>
+    </div>
+    <div class="loader-text">Chargement DEPTO...</div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">D</span>
+        <span class="brand-name">DEPTO</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link active">Accueil</a>
+        <a href="produits.html" class="nav-link">Produits</a>
+        <a href="suivi.html" class="nav-link">Suivi</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Changer de theme">
+          <span class="theme-icon theme-icon-light">Jour</span>
+          <span class="theme-icon theme-icon-dark">Nuit</span>
+        </button>
+        <a href="panier.html" class="cart-btn">
+          Panier <span id="cartCount" class="cart-count">0</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">Vente sur precommande</p>
+          <h1>Commandez en Chine, recevez a Kinshasa.</h1>
+          <p class="lead">
+            DEPTO selectionne, controle et expedie vos articles depuis notre
+            entrepot partenaire en Chine jusqu'a votre porte a Kinshasa.
+          </p>
+          <div class="hero-actions">
+            <a href="produits.html" class="btn btn-primary">Voir les produits</a>
+            <a href="contact.html" class="btn btn-ghost">Nous contacter</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h2>Comment ca marche</h2>
+          <ol class="steps">
+            <li><span>1</span> Choisissez vos articles</li>
+            <li><span>2</span> Validez la precommande</li>
+            <li><span>3</span> Controle qualite en Chine</li>
+            <li><span>4</span> Livraison a Kinshasa</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Articles populaires</h2>
+          <a href="produits.html" class="link-more">Tout voir</a>
+        </div>
+        <div class="product-grid" id="produitsVedettes"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container feature-grid">
+        <div class="feature">
+          <h3>Controle qualite</h3>
+          <p>Chaque colis est ouvert, inspecte et photographie en Chine avant expedition.</p>
+        </div>
+        <div class="feature">
+          <h3>Suivi transparent</h3>
+          <p>Vous suivez l'etat de votre commande a chaque etape, du depot a la livraison.</p>
+        </div>
+        <div class="feature">
+          <h3>Prix degressifs</h3>
+          <p>Plus vous regroupez de colis, plus le tarif au kilo diminue.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name">DEPTO</p>
+        <p class="footer-text">Kinshasa, Republique Democratique du Congo</p>
+      </div>
+      <div class="footer-links">
+        <a href="produits.html">Produits</a>
+        <a href="suivi.html">Suivi</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">2026 DEPTO. Tous droits reserves.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/produits.js"></script>
+</body>
+</html>

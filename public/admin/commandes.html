@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Commandes - DEPTO Admin</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <span class="admin-brand-mark">D</span>
+        <div>
+          <div class="admin-brand-name">DEPTO</div>
+          <div class="admin-brand-sub">Administration</div>
+        </div>
+      </div>
+
+      <a href="dashboard.html" class="admin-nav-link">Tableau de bord</a>
+      <a href="produits.html" class="admin-nav-link">Produits</a>
+      <a href="commandes.html" class="admin-nav-link active">Commandes</a>
+
+      <div class="admin-nav-spacer"></div>
+
+      <div class="admin-sidebar-footer">
+        <button id="themeToggle">Changer de theme</button>
+        <button id="logoutBtn">Deconnexion</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1>Commandes</h1>
+      </div>
+
+      <div class="admin-card">
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+  <th>Code</th>
+  <th>Client</th>
+  <th>Total</th>
+  <th>Payé</th>
+  <th>Reste</th>
+  <th>Statut</th>
+  <th>Actions</th>
+</tr>
+            </thead>
+            <tbody id="orderTable">
+              <tr>
+                <td colspan="7" class="admin-empty">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/admin-guard.js"></script>
+  <script src="../js/admin-commandes.js"></script>
+</body>
+</html>
