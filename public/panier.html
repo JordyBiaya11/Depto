@@ -56,10 +56,8 @@
         </div>
 
         <div class="cart-layout">
-          <!-- Liste des articles -->
           <div class="cart-items" id="cartItems"></div>
 
-          <!-- Récapitulatif -->
           <aside class="cart-summary">
             <h2>Recapitulatif</h2>
             
@@ -87,9 +85,15 @@
               <strong id="cartSolde" style="color: var(--text-secondary); font-size: 16px;">0 $</strong>
             </div>
             
-            <button class="btn btn-primary btn-block" id="btnValider" style="background: var(--accent); color: #fff;">
-              Valider la commande (60%)
+            <!-- BOUTONS DE PAIEMENT -->
+            <button class="btn btn-primary btn-block" id="btnValider60" style="background: var(--accent); color: #fff; margin-bottom: 10px;">
+              Valider et payer l'avance (60%)
             </button>
+            
+            <button class="btn btn-ghost btn-block" id="btnValider100" style="border: 2px solid var(--accent); color: var(--accent); margin-bottom: 10px;">
+              Valider et payer l'intégralité (100%)
+            </button>
+            
             <button class="btn btn-ghost btn-block" id="btnVider">
               Vider le panier
             </button>
@@ -108,7 +112,7 @@
       <div class="footer-links">
         <a href="femme.html">Femme</a>
         <a href="homme.html">Homme</a>
-        
+        <a href="autres.html">Autres</a>
       </div>
       <p class="footer-copy">2026 DEPTO. Tous droits réservés.</p>
     </div>

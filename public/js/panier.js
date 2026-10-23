@@ -3,7 +3,9 @@
   const totalEl = document.getElementById("cartTotal");
   const acompteEl = document.getElementById("cartAcompte");
   const soldeEl = document.getElementById("cartSolde");
-  const btnValider = document.getElementById("btnValider");
+  
+  const btnValider60 = document.getElementById("btnValider60");
+  const btnValider100 = document.getElementById("btnValider100");
   const btnVider = document.getElementById("btnVider");
 
   const WHATSAPP_NUMBER = "243979748898";
@@ -91,7 +93,7 @@
     soldeEl.textContent = formatPrice(solde);
   }
 
-  function validerCommande() {
+  function traiterCommande(typePaiement) {
     const panier = getPanier();
     const nom = document.getElementById("clientNom").value.trim();
     const tel = document.getElementById("clientTel").value.trim();
@@ -106,19 +108,16 @@
       return;
     }
 
-    // --- ALERTE DE CHOIX DE PAIEMENT ---
     let total = 0;
     panier.forEach(item => { total += Number(item.prix) * Number(item.quantite); });
     const acompte = total * 0.60;
-    
-    const choixPaiement = confirm(
-      "Comment souhaitez-vous payer votre commande ?\n\n" +
-      "Cliquez sur OK pour payer UNIQUEMENT L'AVANCE (60%).\n" +
-      "Cliquez sur Annuler pour payer L'INTÉGRALITÉ (100%)."
-    );
 
-    btnValider.textContent = "Création de la facture...";
-    btnValider.disabled = true;
+    const btnActif = typePaiement === '60' ? btnValider60 : btnValider100;
+    const txtOriginal = btnActif.textContent;
+
+    btnValider60.disabled = true;
+    btnValider100.disabled = true;
+    btnActif.textContent = "Création de la facture...";
 
     const items = panier.map(function (item) {
       return {
@@ -160,13 +159,12 @@
 
         message += "*TOTAL DU PANIER : " + total.toFixed(2) + "$*\n\n";
         
-        // --- MESSAGE WHATSAPP ADAPTÉ AU CHOIX DU CLIENT ---
-        if (choixPaiement) {
-          message += "*MODE DE PAIEMENT CHOISI :* Avance de 60%\n";
+        if (typePaiement === '60') {
+          message += "*MODE DE PAIEMENT :* Avance de 60%\n";
           message += "-> Montant à verser maintenant : *" + acompte.toFixed(2) + "$*\n";
           message += "-> Reste à payer à l'arrivée : " + (total - acompte).toFixed(2) + "$\n\n";
         } else {
-          message += "*MODE DE PAIEMENT CHOISI :* Totalité (100%)\n";
+          message += "*MODE DE PAIEMENT :* Totalité (100%)\n";
           message += "-> Montant à verser maintenant : *" + total.toFixed(2) + "$*\n\n";
         }
         
@@ -193,12 +191,15 @@
       })
       .catch(function () {
         alert("Erreur lors de la création de la commande. Veuillez réessayer.");
-        btnValider.textContent = "Valider la commande (60%)";
-        btnValider.disabled = false;
+        btnValider60.disabled = false;
+        btnValider100.disabled = false;
+        btnActif.textContent = txtOriginal;
       });
   }
 
-  btnValider.addEventListener("click", validerCommande);
+  // Attache l'action aux deux boutons
+  btnValider60.addEventListener("click", function () { traiterCommande('60'); });
+  btnValider100.addEventListener("click", function () { traiterCommande('100'); });
 
   btnVider.addEventListener("click", function () {
     if (confirm("Vider le panier ?")) {
