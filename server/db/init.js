@@ -16,7 +16,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
     prix REAL NOT NULL,
-    categorie TEXT NOT NULL,
+    genre TEXT,
+    sous_categorie TEXT,
     tailles TEXT,
     description TEXT,
     photo TEXT NOT NULL,
@@ -54,13 +55,9 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
-  CREATE INDEX IF NOT EXISTS idx_produits_categorie ON produits(categorie);
+  CREATE INDEX IF NOT EXISTS idx_produits_genre ON produits(genre);
   CREATE INDEX IF NOT EXISTS idx_commandes_code ON commandes(code);
 `);
 
-try {
-  db.exec("ALTER TABLE admins ADD COLUMN nom TEXT");
-} catch (e) {}
-
-console.log("Base initialisee avec succes.");
+console.log("Base initialisee :", dbPath);
 db.close();

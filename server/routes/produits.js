@@ -17,113 +17,68 @@ function removePhotoFile(photoUrl) {
 }
 
 router.get("/api/produits", function (req, res) {
-  const produits = db
-    .prepare("SELECT * FROM produits ORDER BY created_at DESC")
-    .all();
+  const produits = db.prepare("SELECT * FROM produits ORDER BY created_at DESC").all();
   res.json(produits);
 });
 
 router.get("/api/produits/:id", function (req, res) {
-  const produit = db
-    .prepare("SELECT * FROM produits WHERE id = ?")
-    .get(req.params.id);
-
-  if (!produit) {
-    return res.status(404).json({ error: "Produit introuvable" });
-  }
+  const produit = db.prepare("SELECT * FROM produits WHERE id = ?").get(req.params.id);
+  if (!produit) return res.status(404).json({ error: "Produit introuvable" });
   res.json(produit);
 });
 
-router.post(
-  "/api/produits",
-  requireAuth,
-  upload.single("photo"),
-  function (req, res) {
-    const { nom, prix, categorie, tailles, description } = req.body;
+router.post("/api/produits", requireAuth, upload.single("photo"), function (req, res) {
+  const { nom, prix, genre, sous_categorie, tailles, description } = req.body;
 
-    if (!nom || !prix || !categorie || !req.file) {
-      return res.status(400).json({ error: "Champs manquants" });
-    }
-
-    const photoUrl = "/uploads/" + req.file.filename;
-
-    const result = db
-      .prepare(
-        `INSERT INTO produits (nom, prix, categorie, tailles, description, photo)
-         VALUES (?, ?, ?, ?, ?, ?)`
-      )
-      .run(
-        nom,
-        Number(prix),
-        categorie,
-        tailles || null,
-        description || null,
-        photoUrl
-      );
-
-    const produit = db
-      .prepare("SELECT * FROM produits WHERE id = ?")
-      .get(result.lastInsertRowid);
-
-    res.status(201).json(produit);
+  if (!nom || !prix || !genre || !req.file) {
+    return res.status(400).json({ error: "Champs manquants" });
   }
-);
 
-router.put(
-  "/api/produits/:id",
-  requireAuth,
-  upload.single("photo"),
-  function (req, res) {
-    const existing = db
-      .prepare("SELECT * FROM produits WHERE id = ?")
-      .get(req.params.id);
+  const photoUrl = "/uploads/" + req.file.filename;
 
-    if (!existing) {
-      return res.status(404).json({ error: "Produit introuvable" });
-    }
+  const result = db.prepare(
+    `INSERT INTO produits (nom, prix, genre, sous_categorie, tailles, description, photo)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).run(nom, Number(prix), genre, sous_categorie, tailles || null, description || null, photoUrl);
 
-    const { nom, prix, categorie, tailles, description } = req.body;
-    let photoUrl = existing.photo;
+  const produit = db.prepare("SELECT * FROM produits WHERE id = ?").get(result.lastInsertRowid);
+  res.status(201).json(produit);
+});
 
-    if (req.file) {
-      removePhotoFile(existing.photo);
-      photoUrl = "/uploads/" + req.file.filename;
-    }
+router.put("/api/produits/:id", requireAuth, upload.single("photo"), function (req, res) {
+  const existing = db.prepare("SELECT * FROM produits WHERE id = ?").get(req.params.id);
+  if (!existing) return res.status(404).json({ error: "Produit introuvable" });
 
-    db.prepare(
-      `UPDATE produits
-       SET nom = ?, prix = ?, categorie = ?, tailles = ?, description = ?, photo = ?
-       WHERE id = ?`
-    ).run(
-      nom || existing.nom,
-      prix !== undefined ? Number(prix) : existing.prix,
-      categorie || existing.categorie,
-      tailles !== undefined ? tailles : existing.tailles,
-      description !== undefined ? description : existing.description,
-      photoUrl,
-      req.params.id
-    );
+  const { nom, prix, genre, sous_categorie, tailles, description } = req.body;
+  let photoUrl = existing.photo;
 
-    const produit = db
-      .prepare("SELECT * FROM produits WHERE id = ?")
-      .get(req.params.id);
-
-    res.json(produit);
+  if (req.file) {
+    removePhotoFile(existing.photo);
+    photoUrl = "/uploads/" + req.file.filename;
   }
-);
+
+  db.prepare(
+    `UPDATE produits
+     SET nom = ?, prix = ?, genre = ?, sous_categorie = ?, tailles = ?, description = ?, photo = ?
+     WHERE id = ?`
+  ).run(
+    nom || existing.nom, prix !== undefined ? Number(prix) : existing.prix,
+    genre || existing.genre, sous_categorie || existing.sous_categorie,
+    tailles !== undefined ? tailles : existing.tailles,
+    description !== undefined ? description : existing.description,
+    photoUrl, req.params.id
+  );
+
+  const produit = db.prepare("SELECT * FROM produits WHERE id = ?").get(req.params.id);
+  res.json(produit);
+});
 
 router.delete("/api/produits/:id", requireAuth, function (req, res) {
-  const existing = db
-    .prepare("SELECT * FROM produits WHERE id = ?")
-    .get(req.params.id);
-
-  if (!existing) {
-    return res.status(404).json({ error: "Produit introuvable" });
-  }
+  const existing = db.prepare("SELECT * FROM produits WHERE id = ?").get(req.params.id);
+  if (!existing) return res.status(404).json({ error: "Produit introuvable" });
 
   db.prepare("DELETE FROM produits WHERE id = ?").run(req.params.id);
   removePhotoFile(existing.photo);
-
   res.json({ ok: true });
 });
 
