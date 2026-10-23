@@ -106,12 +106,21 @@
       return;
     }
 
+    // --- ALERTE DE CHOIX DE PAIEMENT ---
+    let total = 0;
+    panier.forEach(item => { total += Number(item.prix) * Number(item.quantite); });
+    const acompte = total * 0.60;
+    
+    const choixPaiement = confirm(
+      "Comment souhaitez-vous payer votre commande ?\n\n" +
+      "Cliquez sur OK pour payer UNIQUEMENT L'AVANCE (60%).\n" +
+      "Cliquez sur Annuler pour payer L'INTÉGRALITÉ (100%)."
+    );
+
     btnValider.textContent = "Création de la facture...";
     btnValider.disabled = true;
 
-    let total = 0;
     const items = panier.map(function (item) {
-      total += Number(item.prix) * Number(item.quantite);
       return {
         produit_id: item.id,
         nom: item.nom,
@@ -121,9 +130,6 @@
         couleur: item.couleur,
       };
     });
-
-    const acompte = total * 0.60;
-    const solde = total * 0.40;
 
     fetch("/api/commandes", {
       method: "POST",
@@ -153,15 +159,22 @@
         });
 
         message += "*TOTAL DU PANIER : " + total.toFixed(2) + "$*\n\n";
-        message += "*CONDITIONS DE PAIEMENT :*\n";
-        message += "-> Acompte (60%) à verser : *" + acompte.toFixed(2) + "$*\n";
-        message += "-> Solde (40%) à l'arrivée : *" + solde.toFixed(2) + "$*\n\n";
+        
+        // --- MESSAGE WHATSAPP ADAPTÉ AU CHOIX DU CLIENT ---
+        if (choixPaiement) {
+          message += "*MODE DE PAIEMENT CHOISI :* Avance de 60%\n";
+          message += "-> Montant à verser maintenant : *" + acompte.toFixed(2) + "$*\n";
+          message += "-> Reste à payer à l'arrivée : " + (total - acompte).toFixed(2) + "$\n\n";
+        } else {
+          message += "*MODE DE PAIEMENT CHOISI :* Totalité (100%)\n";
+          message += "-> Montant à verser maintenant : *" + total.toFixed(2) + "$*\n\n";
+        }
         
         message += "*INFORMATIONS IMPORTANTES :*\n";
         message += "- Pour les vêtements, chaussures et accessoires, les frais de port sont inclus.\n";
         message += "- Pour les autres articles, le tarif au kilo vous sera communiqué sous 48h.\n\n";
 
-        message += "Merci de confirmer ma précommande et de m'indiquer comment envoyer les 60%.";
+        message += "Merci de confirmer ma commande.";
 
         const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
         
@@ -174,13 +187,13 @@
 
         setTimeout(function () {
           window.open(url, "_blank");
-          alert("Votre facture " + commande.code + " a été créée.\n\nConservez bien ce code pour suivre votre colis.");
+          alert("Votre facture " + commande.code + " a été créée.");
           window.location.href = "index.html";
         }, 1800);
       })
       .catch(function () {
         alert("Erreur lors de la création de la commande. Veuillez réessayer.");
-        btnValider.textContent = "Valider la commande";
+        btnValider.textContent = "Valider la commande (60%)";
         btnValider.disabled = false;
       });
   }
