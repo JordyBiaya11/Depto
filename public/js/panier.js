@@ -1,6 +1,8 @@
 (function () {
   const itemsContainer = document.getElementById("cartItems");
   const totalEl = document.getElementById("cartTotal");
+  const acompteEl = document.getElementById("cartAcompte");
+  const soldeEl = document.getElementById("cartSolde");
   const btnValider = document.getElementById("btnValider");
   const btnVider = document.getElementById("btnVider");
 
@@ -29,6 +31,8 @@
       empty.textContent = "Votre panier est vide.";
       itemsContainer.appendChild(empty);
       totalEl.textContent = "0 $";
+      acompteEl.textContent = "0 $";
+      soldeEl.textContent = "0 $";
       return;
     }
 
@@ -50,12 +54,9 @@
       name.textContent = item.nom;
       const meta = document.createElement("p");
       meta.textContent =
-        "Taille: " +
-        (item.taille || "-") +
-        " | Couleur: " +
-        (item.couleur || "-") +
-        " | Quantite: " +
-        item.quantite;
+        "Taille: " + (item.taille || "-") +
+        " | Couleur: " + (item.couleur || "-") +
+        " | Quantite: " + item.quantite;
       info.appendChild(name);
       info.appendChild(meta);
 
@@ -82,7 +83,12 @@
       itemsContainer.appendChild(row);
     });
 
+    const acompte = total * 0.60;
+    const solde = total * 0.40;
+
     totalEl.textContent = formatPrice(total);
+    acompteEl.textContent = formatPrice(acompte);
+    soldeEl.textContent = formatPrice(solde);
   }
 
   function validerCommande() {
@@ -96,7 +102,7 @@
     }
 
     if (!nom || !tel) {
-      alert("Veuillez renseigner votre nom et votre numéro de téléphone pour le suivi de votre colis.");
+      alert("Veuillez renseigner votre nom et votre numéro de téléphone.");
       return;
     }
 
@@ -116,6 +122,9 @@
       };
     });
 
+    const acompte = total * 0.60;
+    const solde = total * 0.40;
+
     fetch("/api/commandes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,9 +141,9 @@
       .then(function (commande) {
         savePanier([]);
         
-        let message = "Nouvelle commande DEPTO\n\n";
-        message += "Facture N° : " + commande.code + "\n";
-        message += "Client : " + nom + " (" + tel + ")\n\n";
+        let message = "*NOUVELLE COMMANDE DEPTO*\n\n";
+        message += "*Facture N° :* " + commande.code + "\n";
+        message += "*Client :* " + nom + " (" + tel + ")\n\n";
         
         panier.forEach(function (item, i) {
           const sousTotal = Number(item.prix) * Number(item.quantite);
@@ -143,8 +152,16 @@
           message += "   Quantite: " + item.quantite + " x " + item.prix + "$ = " + sousTotal + "$\n\n";
         });
 
-        message += "TOTAL A PAYER : " + total + "$\n\n";
-        message += "Merci de confirmer ma precommande et d'indiquer le mode de paiement (Avance ou Total).";
+        message += "*TOTAL DU PANIER : " + total.toFixed(2) + "$*\n\n";
+        message += "*CONDITIONS DE PAIEMENT :*\n";
+        message += "-> Acompte (60%) à verser : *" + acompte.toFixed(2) + "$*\n";
+        message += "-> Solde (40%) à l'arrivée : *" + solde.toFixed(2) + "$*\n\n";
+        
+        message += "*INFORMATIONS IMPORTANTES :*\n";
+        message += "- Pour les vêtements, chaussures et accessoires, les frais de port sont inclus.\n";
+        message += "- Pour les autres articles, le tarif au kilo vous sera communiqué sous 48h.\n\n";
+
+        message += "Merci de confirmer ma précommande et de m'indiquer comment envoyer les 60%.";
 
         const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
         
@@ -157,7 +174,7 @@
 
         setTimeout(function () {
           window.open(url, "_blank");
-          alert("Votre facture " + commande.code + " a été créée.\n\nConservez bien ce code (ex: " + commande.code + ") pour suivre votre colis sur notre site.");
+          alert("Votre facture " + commande.code + " a été créée.\n\nConservez bien ce code pour suivre votre colis.");
           window.location.href = "index.html";
         }, 1800);
       })

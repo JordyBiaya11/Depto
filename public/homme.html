@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue Homme - DEPTO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js" type="module"></script>
+</head>
+<body>
+  <div id="depto-loader">
+    <div class="loader-lottie-container"><dotlottie-wc src="images/loader.json" speed="1" style="width: 180px; height: 180px;" loop autoplay></dotlottie-wc></div>
+    <div class="loader-text">Chargement DEPTO...</div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand"><span class="brand-mark">D</span><span class="brand-name">DEPTO</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="femme.html" class="nav-link">Femme</a>
+        <a href="homme.html" class="nav-link active">Homme</a>
+        <a href="autres.html" class="nav-link">Autres</a>
+        <a href="avis.html" class="nav-link">Avis</a>
+        <a href="panier.html" class="nav-link mobile-cart-link">Panier <span class="cart-count" id="mobileCartCount">0</span></a>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Changer de theme"><span class="theme-icon theme-icon-light">Jour</span><span class="theme-icon theme-icon-dark">Nuit</span></button>
+        <a href="panier.html" class="cart-btn">Panier <span id="cartCount" class="cart-count">0</span></a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-head"><h1>Collection Homme</h1></div>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">Tout</button>
+          <button class="filter-btn" data-filter="vetements">Vêtements</button>
+          <button class="filter-btn" data-filter="chaussures">Chaussures</button>
+          <button class="filter-btn" data-filter="accessoires">Accessoires</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+        <p class="empty-state" id="emptyState" hidden>Aucun produit disponible pour le moment.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><p class="brand-name">DEPTO</p><p class="footer-text">Kinshasa, RDC</p></div>
+      <div class="footer-links"><a href="femme.html">Femme</a><a href="homme.html">Homme</a><a href="suivi.html">Suivi</a></div>
+      <p class="footer-copy">2026 DEPTO.</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script src="js/produits.js"></script>
+</body>
+</html>

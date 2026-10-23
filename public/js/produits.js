@@ -1,20 +1,21 @@
 (function () {
   const grid = document.getElementById("productGrid");
-  const featured = document.getElementById("produitsVedettes");
   const emptyState = document.getElementById("emptyState");
   const filterButtons = document.querySelectorAll(".filter-btn");
+  if (!grid) return;
 
   let allProducts = [];
   let currentFilter = "all";
 
+  // Détecte sur quelle page on est pour filtrer par genre
+  const path = window.location.pathname;
+  let currentGenre = "all";
+  if (path.includes("femme.html")) currentGenre = "femme";
+  if (path.includes("homme.html")) currentGenre = "homme";
+  if (path.includes("autres.html")) currentGenre = "autres";
+
   function formatPrice(value) {
     return Number(value).toFixed(2) + " $";
-  }
-
-  function categoryLabel(value) {
-    if (value === "vetements") return "Vetements";
-    if (value === "electronique") return "Electronique";
-    return value;
   }
 
   function createCard(product) {
@@ -25,14 +26,13 @@
     const img = document.createElement("img");
     img.src = product.photo || "images/placeholder.svg";
     img.alt = product.nom;
-    img.loading = "lazy";
 
     const body = document.createElement("div");
     body.className = "product-body";
 
     const cat = document.createElement("span");
     cat.className = "product-category";
-    cat.textContent = categoryLabel(product.categorie);
+    cat.textContent = product.sous_categorie || product.categorie;
 
     const name = document.createElement("h3");
     name.className = "product-name";
@@ -52,17 +52,19 @@
   }
 
   function render() {
-    const target = grid || featured;
-    if (!target) return;
+    let list = allProducts;
 
-    const list =
-      currentFilter === "all"
-        ? allProducts
-        : allProducts.filter(function (p) {
-            return p.categorie === currentFilter;
-          });
+    // Filtre par page (Genre)
+    if (currentGenre !== "all") {
+      list = list.filter(p => p.genre === currentGenre);
+    }
 
-    target.innerHTML = "";
+    // Filtre par bouton (Sous-catégorie)
+    if (currentFilter !== "all") {
+      list = list.filter(p => p.sous_categorie === currentFilter || p.categorie === currentFilter);
+    }
+
+    grid.innerHTML = "";
 
     if (list.length === 0) {
       if (emptyState) emptyState.hidden = false;
@@ -70,16 +72,12 @@
     }
 
     if (emptyState) emptyState.hidden = true;
-    list.forEach(function (product) {
-      target.appendChild(createCard(product));
-    });
+    list.forEach(product => grid.appendChild(createCard(product)));
   }
 
   filterButtons.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      filterButtons.forEach(function (b) {
-        b.classList.remove("active");
-      });
+      filterButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentFilter = btn.getAttribute("data-filter");
       render();
@@ -87,14 +85,12 @@
   });
 
   fetch("/api/produits")
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (data) {
+    .then(res => res.json())
+    .then(data => {
       allProducts = Array.isArray(data) ? data : [];
       render();
     })
-    .catch(function () {
+    .catch(() => {
       allProducts = [];
       render();
     });
