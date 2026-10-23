@@ -23,11 +23,12 @@
         <span class="brand-mark">D</span>
         <span class="brand-name">DEPTO</span>
       </a>
-            <nav class="main-nav" id="mainNav">
-        <a href="index.html" class="nav-link active">Accueil</a>
-        <a href="produits.html" class="nav-link">Produits</a>
-        <a href="suivi.html" class="nav-link">Suivi</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="femme.html" class="nav-link">Femme</a>
+        <a href="homme.html" class="nav-link">Homme</a>
+        <a href="autres.html" class="nav-link">Autres</a>
+        <a href="avis.html" class="nav-link">Avis</a>
         <a href="panier.html" class="nav-link mobile-cart-link">
           Panier <span class="cart-count" id="mobileCartCount">0</span>
         </a>
@@ -49,15 +50,15 @@
 
   <main>
     <section class="section">
-      <div class="container narrow">
-        <div class="section-head">
-          <h1>Suivi de colis</h1>
+      <div class="container narrow" style="max-width: 600px; margin: 0 auto;">
+        <div class="section-head" style="text-align: center; display: block; margin-bottom: 32px;">
+          <h1>Suivi de votre commande</h1>
+          <p class="lead">Entrez votre numéro de facture (ex: DPT-2026-0012) pour connaître l'état de votre colis.</p>
         </div>
-        <p class="lead">Entrez votre numero de commande pour connaitre son etat.</p>
 
-        <form class="track-form" id="trackForm">
-          <input type="text" id="trackInput" placeholder="Ex: DPT-2026-0012" required>
-          <button type="submit" class="btn btn-primary">Rechercher</button>
+        <form class="track-form" id="trackForm" style="background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border);">
+          <input type="text" id="trackInput" placeholder="Numéro de facture..." required style="width: 100%; margin-bottom: 12px;">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Rechercher mon colis</button>
         </form>
 
         <div id="trackResult" class="track-result"></div>
@@ -69,14 +70,14 @@
     <div class="container footer-inner">
       <div>
         <p class="brand-name">DEPTO</p>
-        <p class="footer-text">Kinshasa, Republique Democratique du Congo</p>
+        <p class="footer-text">Kinshasa, République Démocratique du Congo</p>
       </div>
       <div class="footer-links">
-        <a href="produits.html">Produits</a>
+        <a href="femme.html">Femme</a>
+        <a href="homme.html">Homme</a>
         <a href="suivi.html">Suivi</a>
-        <a href="contact.html">Contact</a>
       </div>
-      <p class="footer-copy">2026 DEPTO. Tous droits reserves.</p>
+      <p class="footer-copy">2026 DEPTO. Tous droits réservés.</p>
     </div>
   </footer>
 
