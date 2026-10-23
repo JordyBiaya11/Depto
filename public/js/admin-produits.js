@@ -32,7 +32,8 @@
       document.getElementById("productId").value = product.id;
       document.getElementById("nom").value = product.nom || "";
       document.getElementById("prix").value = product.prix || "";
-      document.getElementById("categorie").value = product.categorie || "vetements";
+      document.getElementById("genre").value = product.genre || "femme";
+      document.getElementById("sous_categorie").value = product.sous_categorie || "vetements";
       document.getElementById("tailles").value = product.tailles || "";
       document.getElementById("description").value = product.description || "";
       if (product.photo) {
@@ -63,8 +64,8 @@
     nomCell.textContent = product.nom;
 
     const catCell = document.createElement("td");
-    catCell.textContent =
-      product.categorie === "vetements" ? "Vetements" : "Electronique";
+    const genreLabel = product.genre === "femme" ? "Femme" : (product.genre === "homme" ? "Homme" : "Autres");
+    catCell.innerHTML = `<strong>${genreLabel}</strong><br><small>${product.sous_categorie || ""}</small>`;
 
     const prixCell = document.createElement("td");
     prixCell.textContent = Number(product.prix).toFixed(2) + " $";
@@ -181,7 +182,8 @@
     const id = document.getElementById("productId").value;
     const nom = document.getElementById("nom").value.trim();
     const prix = document.getElementById("prix").value;
-    const categorie = document.getElementById("categorie").value;
+    const genre = document.getElementById("genre").value;
+    const sous_categorie = document.getElementById("sous_categorie").value;
     const tailles = document.getElementById("tailles").value.trim();
     const description = document.getElementById("description").value.trim();
     const photoFile = fileInput.files[0];
@@ -194,7 +196,8 @@
     const formData = new FormData();
     formData.append("nom", nom);
     formData.append("prix", prix);
-    formData.append("categorie", categorie);
+    formData.append("genre", genre);
+    formData.append("sous_categorie", sous_categorie);
     formData.append("tailles", tailles);
     formData.append("description", description);
     if (photoFile) formData.append("photo", photoFile);
